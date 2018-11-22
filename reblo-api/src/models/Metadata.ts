@@ -30,5 +30,5 @@ export class Metadata {
   order: number;
 
   @Column({type: 'simple-json', comment: '拓展字段'})
-  extends: Array<{ name: string, value: string }>;
+  extends: any;
 }
