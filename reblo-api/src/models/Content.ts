@@ -48,11 +48,11 @@ export class Content {
   updatedAt: Date;
 
   @Column({comment: '是否允许PING'})
-  ping: boolean
+  ping: boolean;
 
   @Column({comment: '是否允许出现在聚合中'})
-  feed: boolean
-  
+  feed: boolean;
+
   @Column({type: 'simple-json', comment: '访问信息'})
   count: { views: number, likes: number, comments: number };
 

@@ -5,6 +5,7 @@
  */
 
 import {Entity, PrimaryGeneratedColumn, CreateDateColumn, Column} from 'typeorm';
+import {UserGroup} from '../util/Enums';
 
 @Entity()
 export class User {
@@ -23,7 +24,7 @@ export class User {
   @Column({length: 48, comment: '用户昵称'})
   nickname: string;
 
-  @Column({type: 'tinyint', comment: '用户组-0,1,2,3'})
+  @Column({type: 'enum', enum: [UserGroup.ADMIN, UserGroup.EDITOR, UserGroup.VISITOR], comment: '用户组-0,1,2'})
   group: number;
 
   @CreateDateColumn({comment: '创建时间'})
