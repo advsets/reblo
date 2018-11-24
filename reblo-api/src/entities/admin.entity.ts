@@ -7,7 +7,7 @@
 import {Entity, PrimaryGeneratedColumn, CreateDateColumn, Column} from 'typeorm';
 
 @Entity()
-export class AdminEntity {
+export class Admin {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 

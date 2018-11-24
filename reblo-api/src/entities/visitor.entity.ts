@@ -7,7 +7,7 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
-export class VisitorEntity {
+export class Visitor {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 

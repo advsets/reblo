@@ -7,7 +7,7 @@
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn,} from 'typeorm';
 
 @Entity()
-export class TagEntity {
+export class Tag {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 

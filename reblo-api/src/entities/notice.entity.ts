@@ -7,7 +7,7 @@
 import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity()
-export class NoticeEntity {
+export class Notice {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 

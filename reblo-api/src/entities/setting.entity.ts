@@ -7,7 +7,7 @@
 import {Column, Entity, PrimaryColumn} from 'typeorm';
 
 @Entity()
-export class SettingEntity {
+export class Setting {
   @PrimaryColumn({length: 48, comment: '配置名称'})
   name: string;
 
