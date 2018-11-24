@@ -4,12 +4,7 @@
  * @author advsets <https://github.com/advsets>
  */
 
-import {
-  Column, CreateDateColumn,
-  Entity, JoinTable, ManyToMany,
-  PrimaryGeneratedColumn, UpdateDateColumn,
-} from 'typeorm';
-import {PostEntity} from './Post';
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn,} from 'typeorm';
 
 @Entity()
 export class TagEntity {
