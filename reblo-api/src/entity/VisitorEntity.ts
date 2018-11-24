@@ -4,10 +4,13 @@
  * @author advsets <https://github.com/advsets>
  */
 
-import {Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
-export class Visitor {
+export class VisitorEntity {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
+
+  @Column({type: 'simple-json', comment: '访客信息'})
+  info: any;
 }

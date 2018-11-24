@@ -9,10 +9,10 @@ import {
   Entity, JoinTable, ManyToMany,
   PrimaryGeneratedColumn, UpdateDateColumn,
 } from 'typeorm';
-import {Post} from './Post';
+import {PostEntity} from './Post';
 
 @Entity()
-export class Tag {
+export class TagEntity {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
