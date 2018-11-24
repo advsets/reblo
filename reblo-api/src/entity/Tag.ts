@@ -1,53 +1,40 @@
 /**
- * Category entity.
+ * Tag.
  * @description 标签数据模型
  * @author advsets <https://github.com/advsets>
  */
 
 import {
-  Column,
-  CreateDateColumn,
+  Column, CreateDateColumn,
   Entity, JoinTable, ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  PrimaryGeneratedColumn, UpdateDateColumn,
 } from 'typeorm';
 import {Post} from './Post';
 
 @Entity()
 export class Tag {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
-  // 标签名称
-  @Column()
+  @Column({length: 100, comment: '标签名称'})
   name: string;
 
-  // 标签别名
-  @Column()
+  @Column({length: 48, comment: '标签别名'})
   alias: string;
 
-  // 标签描述
-  @Column()
+  @Column({length: 200, comment: '标签描述'})
   description: string;
 
-  // 拓展字段
-  @Column('simple-json')
+  @Column({comment: '标签文章数'})
+  count: number;
+
+  @Column({type: 'simple-json', comment: '拓展字段'})
   extends: Array<{ name: string, value: string }>;
 
-  // 标签文章
-  @ManyToMany(_type => Post, {
-    cascadeInsert: true,
-    cascadeUpdate: true
-  })
-  @JoinTable()
-  posts: Post[];
-
-  // 创建时间
-  @CreateDateColumn()
+  @CreateDateColumn({comment: '创建时间'})
   createdAt: Date;
 
-  // 更新时间
-  @UpdateDateColumn()
+  @UpdateDateColumn({comment: '更新时间'})
   updatedAt: Date;
 
 }

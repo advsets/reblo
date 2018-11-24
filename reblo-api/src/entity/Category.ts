@@ -1,59 +1,34 @@
 /**
- * CategoryEntity.
+ * Category.
  * @description 分类数据模型
  * @author advsets <https://github.com/advsets>
  */
 
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  TreeChildren,
-  TreeParent,
-  OneToMany
-} from 'typeorm';
-import {Post} from './Post';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity()
 export class Category {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
-  // 分类名称
-  @Column()
+  @Column({length: 100, comment: '分类名称'})
   name: string;
 
-  // 分类别名
-  @Column()
+  @Column({length: 48, comment: '分类路径'})
   alias: string;
 
-  // 分类描述
-  @Column()
+  @Column({comment: '分类文章数'})
+  count: number;
+
+  @Column({comment: '分类描述'})
   description: string;
 
-  // 分类拓展
-  @Column('simple-json')
+  @Column({type: 'simple-json', comment: '分类拓展'})
   extends: Array<{ name: string, value: string }>;
 
-  // 父级分类
-  @TreeParent()
-  parent: Category;
-
-  // 下级分类
-  @TreeChildren()
-  children: Category[];
-
-  // 创建时间
-  @CreateDateColumn()
+  @CreateDateColumn({comment: '创建时间'})
   createdAt: Date;
 
-  // 更新时间
-  @UpdateDateColumn()
+  @UpdateDateColumn({comment: '更新时间'})
   updatedAt: Date;
-
-  // 分类文章
-  @OneToMany(_type => Post, post => post.category)
-  posts: Post[];
 }

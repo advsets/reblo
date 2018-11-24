@@ -1,5 +1,5 @@
 /**
- * NoticeEntity.
+ * Notice.
  * @description 通知数据模型
  * @author advsets <https://github.com/advsets>
  */
@@ -8,22 +8,18 @@ import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColu
 
 @Entity()
 export class Notice {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
-  // 通知内容
-  @Column()
+  @Column({comment: '通知内容'})
   content: string;
 
-  // 通知状态
-  @Column()
+  @Column({type: 'tinyint', comment: '通知状态 -> 0:草稿中, 1:已发布'})
   status: number;
 
-  // 创建时间
-  @CreateDateColumn()
+  @CreateDateColumn({comment: '创建时间'})
   createdAt: Date;
 
-  // 更新时间
-  @UpdateDateColumn()
+  @UpdateDateColumn({comment: '更新时间'})
   updatedAt: Date;
 }

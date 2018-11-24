@@ -1,84 +1,58 @@
 /**
- * ArticleEntity.
+ * Post.
  * @description 文章数据模型
  * @author advsets <https://github.com/advsets>
  */
 
-import {
-  Column,
-  CreateDateColumn,
-  Entity, JoinTable, ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn
-} from 'typeorm';
-import {Tag} from './Tag';
-import {Category} from './Category';
-import {User} from './User';
+import {Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity()
 export class Post {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
-  // 文章标题
-  @Column()
+  @Column({length: 100, comment: '文章标题'})
   title: string;
 
-  // 文章摘要
-  @Column()
+  @Column({length: 250, comment: '文章摘要'})
   summary: string;
 
-  // 文章关键词-seo
-  @Column('simple-array')
+  @Column({type: 'simple-array', comment: '文章关键字-SEO'})
   keywords: string[];
 
-  // 文章浏览信息
-  @Column('simple-json')
+  @Column({type: 'simple-json', comment: '游客浏览信息'})
   meta: { views: number, likes: number, comments: number };
 
-  // 文章内容
-  @Column()
+  @Column({type: 'text', comment: '文章内容'})
   content: string;
 
-  // 文章缩略图
-  @Column()
+  @Column({comment: '文章缩略图'})
   thumbnail: string;
 
-  // 文章格式
-  @Column()
+  @Column({type: 'tinyint', comment: '文章格式 -> 0:markdown, 1:html'})
   format: number;
 
-  // 文章状态
-  @Column()
+  @Column({type: 'tinyint', comment: '文章状态 -> -1:回收站, 0:草稿中, 1: 已发布'})
   status: number;
 
-  // 文章访问性
-  @Column()
+  @Column({type: 'tinyint', comment: '文章访问性 -> -1:私密, 0:需要密码, 1: 公开'})
   public: number;
 
-  // 文章来源
-  @Column()
+  @Column({type: 'tinyint', comment: '文章来源 -> 0:原创, 1:原创, 2: 混合'})
   source: number;
 
-  // 创建时间
-  @CreateDateColumn()
+  @Column({comment: '分类ID'})
+  categoryId: number;
+
+  @Column({type: 'simple-array', comment: '标签IDS'})
+  tagIds: number[];
+
+  @Column({type: 'simple-json', comment: '拓展字段'})
+  extends: Array<{ name: string, value: string }>;
+
+  @CreateDateColumn({comment: '创建时间'})
   createdAt: Date;
 
-  // 更新时间
-  @UpdateDateColumn()
+  @UpdateDateColumn({comment: '更新时间'})
   updatedAt: Date;
-
-  // 作者
-  @ManyToOne(_type => User, user => user.id)
-  author: User;
-
-  // 分类
-  @ManyToOne(_type => Category, category => category.posts)
-  category: Category;
-
-  // 标签
-  @ManyToMany(_type => Tag)
-  @JoinTable()
-  tags: Tag[];
 }
