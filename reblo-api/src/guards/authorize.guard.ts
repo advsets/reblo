@@ -1,4 +1,4 @@
-import {CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {CanActivate, ExecutionContext, UnauthorizedException, Injectable} from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import {IJwtPayload} from '../interfaces/jwt.interface';
 import {JWT_CONFIG} from '../api.config';
@@ -10,10 +10,10 @@ export class AuthorizeGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     const authorization: string = req.headers['Authorization'] || req.headers['authorization'];
     if (!authorization) {
-      throw new HttpException('Header 缺少 authorization', HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException('Header 缺少 authorization');
     }
     if (!['Bearer ', 'bearer '].includes(authorization.slice(0, 7))) {
-      throw new HttpException('Token 错误', HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException('Token 错误');
     }
     const token: string = authorization.slice(7);
 
@@ -23,10 +23,10 @@ export class AuthorizeGuard implements CanActivate {
       return true;
     } catch (err) {
       if (err instanceof jwt.JsonWebTokenError) {
-        throw new HttpException('Token 无效', HttpStatus.UNAUTHORIZED);
+        throw new UnauthorizedException('Token 无效');
       }
       if (err instanceof jwt.TokenExpiredError) {
-        throw new HttpException('Token 过期', HttpStatus.UNAUTHORIZED);
+        throw new UnauthorizedException('Token 过期');
       }
     }
   }
