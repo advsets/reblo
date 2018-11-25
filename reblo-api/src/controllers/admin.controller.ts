@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Inject, Param, Post, Put, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards} from '@nestjs/common';
 import {AdminService} from '../services/admin.service';
 import {IAdminCreate, IAdminUpdate, ILoginInput} from '../interfaces/admin.interface';
 import {AuthorizeGuard} from '../guards/authorize.guard';
@@ -38,5 +38,11 @@ export class AdminController {
   @UseGuards(AuthorizeGuard)
   async updateAdmin(@Param('id') id: number, @Body() adminInput: IAdminUpdate) {
     return await this.adminServ.updateAdmin(id, adminInput);
+  }
+
+  @Delete('/admin/:id')
+  @UseGuards(AuthorizeGuard)
+  async deleteAdmin(@Param('id') id: number) {
+    return await this.adminServ.deleteAdmin(id);
   }
 }

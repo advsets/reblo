@@ -67,7 +67,7 @@ export class AdminService {
       if (adminInput.password) {
         adminInput.password = parsePassword(adminInput.password);
       }
-      await this.adminRepo.update(id, {...adminInput});
+      await this.adminRepo.update(id, adminInput);
     }
   }
 
@@ -96,7 +96,7 @@ export class AdminService {
     return admin;
   }
 
-  async adminLogin(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply}> {
+  async adminLogin(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply }> {
     const admin = await this.adminRepo.createQueryBuilder('admin')
       .where(`admin.username = :account`, {account})
       .orWhere(`admin.email = :account`, {account: account.toLocaleLowerCase()})
@@ -110,6 +110,7 @@ export class AdminService {
       throw new HttpException(`admin password is error`, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    await this.updateAdmin(admin.id, {loggedAt: new Date()});
     const reply: IJwtReply = await this.authService.createToken({id: admin.id, username: admin.username});
     delete admin.password;
 
