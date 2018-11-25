@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards} from '@nestjs/common';
 import {AuthorizeGuard} from '../guards/authorize.guard';
 import {SettingService} from '../services/setting.service';
-import {ISetting} from '../interfaces/setting.interface';
+import {ISettingModel} from '../interfaces/setting.interface';
 
 @Controller()
 export class SettingController {
@@ -22,13 +22,13 @@ export class SettingController {
 
   @Post('/setting')
   @UseGuards(AuthorizeGuard)
-  async create(@Body() settingInput: ISetting) {
+  async create(@Body() settingInput: ISettingModel) {
     return await this.settingServ.create(settingInput);
   }
 
   @Put('/setting/:id')
   @UseGuards(AuthorizeGuard)
-  async update(@Param('name') name: string, @Body() settingInput: ISetting) {
+  async update(@Param('name') name: string, @Body() settingInput: ISettingModel) {
     return await this.settingServ.update(name, settingInput);
   }
 

@@ -1,4 +1,4 @@
-export interface IAdminInfo {
+export interface IAdminModel {
   id: number;
   username: string;
   email: string;

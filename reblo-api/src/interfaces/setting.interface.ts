@@ -1,4 +1,4 @@
-export interface ISetting {
+export interface ISettingModel {
   name?: string;
   value?: any;
   description?: string;

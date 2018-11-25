@@ -2,7 +2,7 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {Setting} from '../entities/setting.entity';
-import {ISetting} from '../interfaces/setting.interface';
+import {ISettingModel} from '../interfaces/setting.interface';
 
 @Injectable()
 export class SettingService {
@@ -12,7 +12,7 @@ export class SettingService {
   ) {
   }
 
-  async create(settingInput: ISetting): Promise<void> {
+  async create(settingInput: ISettingModel): Promise<void> {
     if (!settingInput.name) {
       throw new HttpException('setting name can\'t null', HttpStatus.NOT_ACCEPTABLE);
     }
@@ -26,7 +26,7 @@ export class SettingService {
     await this.settingRepo.save(this.settingRepo.create(settingInput));
   }
 
-  async update(name: string, settingInput: ISetting): Promise<void> {
+  async update(name: string, settingInput: ISettingModel): Promise<void> {
     const setting = await this.settingRepo.findOne(name);
     if (!setting) {
       throw new HttpException(`setting name:${name} not exist`, HttpStatus.NOT_FOUND);

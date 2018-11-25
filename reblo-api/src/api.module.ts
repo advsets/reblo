@@ -5,6 +5,7 @@ import {I18nOptions, i18nOptions} from './locales/configure';
 import {DB_CONFIG} from './api.config';
 // entities
 import {Admin} from './entities/admin.entity';
+import {Setting} from './entities/setting.entity';
 // services
 import {AdminService} from './services/admin.service';
 import {AuthorizeService} from './services/authorize.service';
@@ -15,7 +16,7 @@ import {AdminController} from './controllers/admin.controller';
 @Module({
   imports: [
     TypeOrmModule.forRoot(DB_CONFIG),
-    TypeOrmModule.forFeature([Admin]),
+    TypeOrmModule.forFeature([Admin, Setting]),
   ],
   providers: [
     AuthorizeService,

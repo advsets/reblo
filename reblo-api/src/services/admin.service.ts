@@ -2,7 +2,7 @@ import {forwardRef, Inject, Injectable, HttpException, HttpStatus} from '@nestjs
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {isEmail, isLength} from 'validator';
-import {IAdminCreate, IAdminInfo, IAdminUpdate} from '../interfaces/admin.interface';
+import {IAdminCreate, IAdminModel, IAdminUpdate} from '../interfaces/admin.interface';
 import {Admin} from '../entities/admin.entity';
 import {IJwtReply} from '../interfaces/jwt.interface';
 import {AuthorizeService} from './authorize.service';
@@ -79,7 +79,7 @@ export class AdminService {
     await this.adminRepo.remove(admin);
   }
 
-  async fetchAll(): Promise<IAdminInfo[]> {
+  async fetchAll(): Promise<IAdminModel[]> {
     const admins = await this.adminRepo.find();
     return admins.map(item => {
       delete item.password;
@@ -87,7 +87,7 @@ export class AdminService {
     });
   }
 
-  async fetchOne(id: number): Promise<IAdminInfo> {
+  async fetchOne(id: number): Promise<IAdminModel> {
     const admin = await this.adminRepo.findOne(id);
     if (!admin) {
       throw new HttpException(`admin id:${id} not exist`, HttpStatus.NOT_FOUND);
@@ -96,7 +96,7 @@ export class AdminService {
     return admin;
   }
 
-  async login(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply }> {
+  async login(account: string, password: string): Promise<{ admin: IAdminModel, reply: IJwtReply }> {
     const admin = await this.adminRepo.createQueryBuilder('admin')
       .where(`admin.username = :account`, {account})
       .orWhere(`admin.email = :account`, {account: account.toLocaleLowerCase()})
