@@ -12,7 +12,7 @@ export class SettingService {
   ) {
   }
 
-  async createSetting(settingInput: ISetting): Promise<void> {
+  async create(settingInput: ISetting): Promise<void> {
     if (!settingInput.name) {
       throw new HttpException('setting name can\'t null', HttpStatus.NOT_ACCEPTABLE);
     }
@@ -26,7 +26,7 @@ export class SettingService {
     await this.settingRepo.save(this.settingRepo.create(settingInput));
   }
 
-  async updateSetting(name: string, settingInput: ISetting): Promise<void> {
+  async update(name: string, settingInput: ISetting): Promise<void> {
     const setting = await this.settingRepo.findOne(name);
     if (!setting) {
       throw new HttpException(`setting name:${name} not exist`, HttpStatus.NOT_FOUND);
@@ -37,7 +37,7 @@ export class SettingService {
     await this.settingRepo.update(name, settingInput);
   }
 
-  async deleteSetting(name: string): Promise<void> {
+  async delete(name: string): Promise<void> {
     const setting = await this.settingRepo.findOne(name);
     if (!setting) {
       throw new HttpException(`setting name:${name} not exist`, HttpStatus.NOT_FOUND);
@@ -45,11 +45,11 @@ export class SettingService {
     await this.settingRepo.remove(setting);
   }
 
-  async fetchAllSetting(): Promise<Setting[]> {
+  async fetchAll(): Promise<Setting[]> {
     return await this.settingRepo.find();
   }
 
-  async fetchOneByName(name: string): Promise<Setting> {
+  async fetchOne(name: string): Promise<Setting> {
     const setting = await this.settingRepo.findOne(name);
     if (!setting) {
       throw new HttpException(`setting name:${name} not exist`, HttpStatus.NOT_FOUND);

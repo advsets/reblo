@@ -12,29 +12,29 @@ export class SettingController {
 
   @Get('/setting')
   async fetchAll() {
-    return this.settingServ.fetchAllSetting();
+    return this.settingServ.fetchAll();
   }
 
   @Get('/setting/:name')
   async fetchOne(@Param('name') name: string) {
-    return this.settingServ.fetchOneByName(name);
+    return this.settingServ.fetchOne(name);
   }
 
   @Post('/setting')
   @UseGuards(AuthorizeGuard)
-  async createAdmin(@Body() settingInput: ISetting) {
-    return await this.settingServ.createSetting(settingInput);
+  async create(@Body() settingInput: ISetting) {
+    return await this.settingServ.create(settingInput);
   }
 
   @Put('/setting/:id')
   @UseGuards(AuthorizeGuard)
-  async updateAdmin(@Param('name') name: string, @Body() settingInput: ISetting) {
-    return await this.settingServ.updateSetting(name, settingInput);
+  async update(@Param('name') name: string, @Body() settingInput: ISetting) {
+    return await this.settingServ.update(name, settingInput);
   }
 
   @Delete('/setting/:id')
   @UseGuards(AuthorizeGuard)
-  async deleteAdmin(@Param('name') name: string) {
-    return await this.settingServ.deleteSetting(name);
+  async delete(@Param('name') name: string) {
+    return await this.settingServ.delete(name);
   }
 }

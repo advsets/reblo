@@ -13,7 +13,7 @@ export class AdminController {
   @Post('/login')
   async login(@Body() loginInput: ILoginInput) {
     const {account, password} = loginInput;
-    return await this.adminServ.adminLogin(account, password);
+    return await this.adminServ.login(account, password);
   }
 
   @Get('/admin')
@@ -25,24 +25,24 @@ export class AdminController {
   @Get('/admin/:id')
   @UseGuards(AuthorizeGuard)
   async fetchOne(@Param('id') id: number) {
-    return this.adminServ.fetchOneById(id);
+    return this.adminServ.fetchOne(id);
   }
 
   @Post('/admin')
   @UseGuards(AuthorizeGuard)
-  async createAdmin(@Body() adminInput: IAdminCreate) {
-    return await this.adminServ.createAdmin(adminInput);
+  async create(@Body() adminInput: IAdminCreate) {
+    return await this.adminServ.create(adminInput);
   }
 
   @Put('/admin/:id')
   @UseGuards(AuthorizeGuard)
-  async updateAdmin(@Param('id') id: number, @Body() adminInput: IAdminUpdate) {
-    return await this.adminServ.updateAdmin(id, adminInput);
+  async update(@Param('id') id: number, @Body() adminInput: IAdminUpdate) {
+    return await this.adminServ.update(id, adminInput);
   }
 
   @Delete('/admin/:id')
   @UseGuards(AuthorizeGuard)
-  async deleteAdmin(@Param('id') id: number) {
-    return await this.adminServ.deleteAdmin(id);
+  async delete(@Param('id') id: number) {
+    return await this.adminServ.delete(id);
   }
 }

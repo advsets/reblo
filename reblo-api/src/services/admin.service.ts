@@ -18,7 +18,7 @@ export class AdminService {
   ) {
   }
 
-  async checkAdminInput(adminInput: IAdminCreate | IAdminUpdate): Promise<boolean> {
+  async checkInput(adminInput: IAdminCreate | IAdminUpdate): Promise<boolean> {
     if (adminInput.username && !isLength(adminInput.username, 5, 24)) {
       throw new HttpException('username length is 5~24', HttpStatus.NOT_ACCEPTABLE);
     }
@@ -37,18 +37,18 @@ export class AdminService {
     return true;
   }
 
-  async createAdmin(adminInput: IAdminCreate): Promise<void> {
+  async create(adminInput: IAdminCreate): Promise<void> {
     if (!adminInput.username || !adminInput.email || !adminInput.password) {
       throw new HttpException('username, email, password not null', HttpStatus.UNPROCESSABLE_ENTITY);
     }
     adminInput.email = adminInput.email.toLocaleLowerCase();
-    if (await this.checkAdminInput(adminInput)) {
+    if (await this.checkInput(adminInput)) {
       adminInput.password = parsePassword(adminInput.password);
       await this.adminRepo.save(this.adminRepo.create(adminInput));
     }
   }
 
-  async updateAdmin(id: number, adminInput: IAdminUpdate): Promise<void> {
+  async update(id: number, adminInput: IAdminUpdate): Promise<void> {
     const admin = await this.adminRepo.findOne(id);
     if (!admin) {
       throw new HttpException(`admin id:${id} not exist`, HttpStatus.NOT_FOUND);
@@ -63,7 +63,7 @@ export class AdminService {
       adminInput.email = adminInput.email.toLocaleLowerCase();
     }
 
-    if (await this.checkAdminInput(adminInput)) {
+    if (await this.checkInput(adminInput)) {
       if (adminInput.password) {
         adminInput.password = parsePassword(adminInput.password);
       }
@@ -71,7 +71,7 @@ export class AdminService {
     }
   }
 
-  async deleteAdmin(id: number): Promise<void> {
+  async delete(id: number): Promise<void> {
     const admin = await this.adminRepo.findOne(id);
     if (!admin) {
       throw new HttpException(`admin id:${id} not exist`, HttpStatus.NOT_FOUND);
@@ -87,7 +87,7 @@ export class AdminService {
     });
   }
 
-  async fetchOneById(id: number): Promise<IAdminInfo> {
+  async fetchOne(id: number): Promise<IAdminInfo> {
     const admin = await this.adminRepo.findOne(id);
     if (!admin) {
       throw new HttpException(`admin id:${id} not exist`, HttpStatus.NOT_FOUND);
@@ -96,7 +96,7 @@ export class AdminService {
     return admin;
   }
 
-  async adminLogin(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply }> {
+  async login(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply }> {
     const admin = await this.adminRepo.createQueryBuilder('admin')
       .where(`admin.username = :account`, {account})
       .orWhere(`admin.email = :account`, {account: account.toLocaleLowerCase()})
@@ -110,7 +110,7 @@ export class AdminService {
       throw new HttpException(`admin password is error`, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    await this.updateAdmin(admin.id, {loggedAt: new Date()});
+    await this.update(admin.id, {loggedAt: new Date()});
     const reply: IJwtReply = await this.authService.createToken({id: admin.id, username: admin.username});
     delete admin.password;
 
