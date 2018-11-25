@@ -8,6 +8,7 @@ import {Admin} from './entities/admin.entity';
 // services
 import {AdminService} from './services/admin.service';
 import {AuthorizeService} from './services/authorize.service';
+import {SettingService} from './services/setting.service';
 // controllers
 import {AdminController} from './controllers/admin.controller';
 
@@ -18,7 +19,8 @@ import {AdminController} from './controllers/admin.controller';
   ],
   providers: [
     AuthorizeService,
-    AdminService
+    AdminService,
+    SettingService
   ],
   controllers: [
     AdminController
