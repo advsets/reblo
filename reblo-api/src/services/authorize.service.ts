@@ -1,11 +1,12 @@
 import {Injectable} from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import {IJwtPayload, IJwtReply} from '../interfaces/jwt.interface';
+import {JWT_CONFIG} from '../api.config';
 
 @Injectable()
-export class AuthService {
+export class AuthorizeService {
   async createToken(payload: IJwtPayload): Promise<IJwtReply> {
-    const accessToken = jwt.sign(payload, 'secretKey', {expiresIn: '5d'});
-    return {accessToken, expiresIn: 5 * 60 * 60 * 24};
+    const token = jwt.sign(payload, JWT_CONFIG.secretKey, JWT_CONFIG.options);
+    return {token, expiresIn: JWT_CONFIG.options.expiresIn};
   }
 }

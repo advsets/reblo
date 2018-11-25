@@ -5,7 +5,7 @@ import {isEmail, isLength} from 'validator';
 import {IAdminCreate, IAdminInfo, IAdminUpdate} from '../interfaces/admin.interface';
 import {Admin} from '../entities/admin.entity';
 import {IJwtReply} from '../interfaces/jwt.interface';
-import {AuthService} from './auth.service';
+import {AuthorizeService} from './authorize.service';
 import {checkPassword, parsePassword} from '../utils/crypto.util';
 
 @Injectable()
@@ -13,8 +13,8 @@ export class AdminService {
   constructor(
     @InjectRepository(Admin)
     private readonly adminRepo: Repository<Admin>,
-    @Inject(forwardRef(() => AuthService))
-    private readonly authService: AuthService,
+    @Inject(forwardRef(() => AuthorizeService))
+    private readonly authService: AuthorizeService,
   ) {
   }
 
@@ -96,7 +96,7 @@ export class AdminService {
     return admin;
   }
 
-  async doAuthLogin(account: string, password: string): Promise<{ token: IJwtReply, admin: IAdminInfo }> {
+  async adminLogin(account: string, password: string): Promise<{ admin: IAdminInfo, reply: IJwtReply}> {
     const admin = await this.adminRepo.createQueryBuilder('admin')
       .where(`admin.username = :account`, {account})
       .orWhere(`admin.email = :account`, {account: account.toLocaleLowerCase()})
@@ -110,9 +110,9 @@ export class AdminService {
       throw new HttpException(`admin password is error`, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    const token: IJwtReply = await this.authService.createToken({username: admin.username});
+    const reply: IJwtReply = await this.authService.createToken({id: admin.id, username: admin.username});
     delete admin.password;
 
-    return {token, admin};
+    return {reply, admin};
   }
 }

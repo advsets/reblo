@@ -20,18 +20,4 @@ describe('AdminController', () => {
   afterAll(async () => {
     await module.close();
   });
-
-  test('AdminController.test', async () => {
-    const target = 'hello world';
-    const result = await adminCtrl.test();
-    console.log(result);
-    expect(result).toBe(target);
-  });
-
-  test('AdminController.createAdmin', async () => {
-    const target = 'hello world';
-    const result = await adminCtrl.createAdmin();
-    console.log(result);
-    expect(result).toBe(result);
-  });
 });

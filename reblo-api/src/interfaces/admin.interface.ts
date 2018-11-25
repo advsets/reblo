@@ -20,3 +20,8 @@ export interface IAdminUpdate {
   nickname?: string;
   loggedAt: Date;
 }
+
+export interface ILoginInput {
+  account: string;
+  password: string;
+}

@@ -23,3 +23,10 @@ export const DB_CONFIG: TypeOrmModuleOptions = {
   synchronize: true,
   dropSchema: false
 };
+
+export const JWT_CONFIG = {
+  secretKey: 'REBLO-secretKey',
+  options: {
+    expiresIn: 5 * 60 * 60 * 24
+  }
+};

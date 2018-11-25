@@ -6,18 +6,18 @@ import {DB_CONFIG} from './api.config';
 // entities
 import {Admin} from './entities/admin.entity';
 // services
-import {AuthService} from './services/auth.service';
 import {AdminService} from './services/admin.service';
+import {AuthorizeService} from './services/authorize.service';
 // controllers
 import {AdminController} from './controllers/admin.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(DB_CONFIG),
-    TypeOrmModule.forFeature([Admin])
+    TypeOrmModule.forFeature([Admin]),
   ],
   providers: [
-    AuthService,
+    AuthorizeService,
     AdminService
   ],
   controllers: [

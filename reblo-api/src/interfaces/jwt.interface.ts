@@ -1,9 +1,9 @@
 export interface IJwtPayload {
+  id: number;
   username: string;
-  options?: any;
 }
 
 export interface IJwtReply {
-  accessToken: string;
-  expiresIn: number;
+  token: string;
+  expiresIn: number | string;
 }
