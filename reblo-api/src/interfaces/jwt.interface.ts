@@ -1,9 +1,9 @@
-export interface JwtPayload {
-  loginName: string;
+export interface IJwtPayload {
+  username: string;
   options?: any;
 }
 
-export interface JwtReply {
+export interface IJwtReply {
   accessToken: string;
   expiresIn: number;
 }

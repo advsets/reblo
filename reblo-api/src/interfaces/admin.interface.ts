@@ -1,3 +1,12 @@
+export interface IAdminInfo {
+  id: number;
+  username: string;
+  email: string;
+  nickname?: string;
+  createdAt?: Date;
+  loggedAt?: Date;
+}
+
 export interface IAdminCreate {
   username: string;
   email: string;
@@ -9,5 +18,5 @@ export interface IAdminUpdate {
   email?: string;
   password?: string;
   nickname?: string;
-  loggedAt: string;
+  loggedAt: Date;
 }

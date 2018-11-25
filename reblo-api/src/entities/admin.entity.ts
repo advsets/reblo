@@ -20,12 +20,12 @@ export class Admin {
   @Column({nullable: false, comment: '用户密码'})
   password: string;
 
-  @Column({length: 48, comment: '用户昵称'})
+  @Column({nullable: true, length: 48, comment: '用户昵称', default: ''})
   nickname: string;
 
   @CreateDateColumn({comment: '创建时间'})
   createdAt: Date;
 
-  @Column({type: 'datetime', comment: '最后登入时间'})
+  @Column({type: 'datetime', nullable: true, comment: '最后登入时间'})
   loggedAt: Date;
 }
