@@ -20,7 +20,7 @@ export class Tag {
   @Column({length: 200, comment: '标签描述'})
   description: string;
 
-  @Column({comment: '标签文章数'})
+  @Column({comment: '标签文章数', default: 0})
   count: number;
 
   @Column({type: 'simple-json', comment: '拓展字段'})
