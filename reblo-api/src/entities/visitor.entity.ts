@@ -11,6 +11,6 @@ export class Visitor {
   @PrimaryGeneratedColumn('increment', {comment: '主键'})
   id: number;
 
-  @Column({type: 'simple-json', comment: '访客信息'})
+  @Column({type: 'simple-json', nullable: true, comment: '访客信息'})
   info: any;
 }

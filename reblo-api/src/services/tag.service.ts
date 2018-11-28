@@ -2,7 +2,7 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {Tag} from '../entities/tag.entity';
-import {ITagCreate, ITagUpdate} from '../interfaces/tag.interface';
+import {ITagCreate, ITagModel, ITagUpdate} from '../interfaces/tag.interface';
 
 @Injectable()
 export class TagService {
@@ -48,11 +48,11 @@ export class TagService {
     await this.tagRepo.remove(tag);
   }
 
-  async fetchAll(): Promise<Tag[]> {
+  async fetchAll(): Promise<ITagModel[]> {
     return await this.tagRepo.find();
   }
 
-  async fetchOne(id: number): Promise<Tag> {
+  async fetchOne(id: number): Promise<ITagModel> {
     const tag = await this.tagRepo.findOne(id);
     if (!tag) {
       throw new HttpException(`tag id:${id} not exist`, HttpStatus.NOT_FOUND);

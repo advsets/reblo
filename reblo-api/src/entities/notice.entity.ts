@@ -14,7 +14,7 @@ export class Notice {
   @Column({comment: '通知内容'})
   content: string;
 
-  @Column({type: 'tinyint', comment: '通知状态 -> 0:草稿中, 1:已发布'})
+  @Column({type: 'tinyint', comment: '通知状态 -> 0:草稿中, 1:已发布', default: 1})
   status: number;
 
   @CreateDateColumn({comment: '创建时间'})

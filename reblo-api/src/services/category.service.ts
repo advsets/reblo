@@ -2,7 +2,7 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {Category} from '../entities/category.entity';
-import {ICategoryCreate, ICategoryUpdate} from '../interfaces/category.interface';
+import {ICategoryCreate, ICategoryModel, ICategoryUpdate} from '../interfaces/category.interface';
 
 @Injectable()
 export class CategoryService {
@@ -48,11 +48,11 @@ export class CategoryService {
     await this.categoryRepo.remove(category);
   }
 
-  async fetchAll(): Promise<{}[]> {
+  async fetchAll(): Promise<ICategoryModel[]> {
     return await this.categoryRepo.find();
   }
 
-  async fetchOne(id: number): Promise<{}> {
+  async fetchOne(id: number): Promise<ICategoryModel> {
     const category = await this.categoryRepo.findOne(id);
     if (!category) {
       throw new HttpException(`category id:${id} not exist`, HttpStatus.NOT_FOUND);
