@@ -1,4 +1,4 @@
-export interface ITagModel {
+export interface ICategoryModel {
   id: number;
   name: string;
   alias: string;
@@ -9,14 +9,14 @@ export interface ITagModel {
   updatedAt: Date;
 }
 
-export interface ITagCreate {
+export interface ICategoryCreate {
   name: string;
   alias: string;
   description?: string;
   extends?: Array<{ name: string, value: string }>;
 }
 
-export interface ITagUpdate {
+export interface ICategoryUpdate {
   name?: string;
   alias?: string;
   description?: string;

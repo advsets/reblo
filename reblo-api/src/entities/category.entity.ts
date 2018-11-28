@@ -17,13 +17,13 @@ export class Category {
   @Column({length: 48, comment: '分类路径'})
   alias: string;
 
-  @Column({comment: '分类文章数'})
+  @Column({default: 0, comment: '分类文章数'})
   count: number;
 
-  @Column({comment: '分类描述'})
+  @Column({nullable: true, comment: '分类描述'})
   description: string;
 
-  @Column({type: 'simple-json', comment: '分类拓展'})
+  @Column({type: 'simple-json', comment: '分类拓展', default: []})
   extends: Array<{ name: string, value: string }>;
 
   @CreateDateColumn({comment: '创建时间'})

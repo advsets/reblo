@@ -17,13 +17,13 @@ export class Tag {
   @Column({length: 48, comment: '标签别名'})
   alias: string;
 
-  @Column({length: 200, comment: '标签描述'})
+  @Column({length: 200, nullable: true, comment: '标签描述'})
   description: string;
 
-  @Column({comment: '标签文章数', default: 0})
+  @Column({default: 0, comment: '标签文章数'})
   count: number;
 
-  @Column({type: 'simple-json', comment: '拓展字段'})
+  @Column({type: 'simple-json', comment: '拓展字段', default: []})
   extends: Array<{ name: string, value: string }>;
 
   @CreateDateColumn({comment: '创建时间'})

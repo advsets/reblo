@@ -25,7 +25,6 @@ export class TagService {
     if (typeof tagInput.alias !== 'string') {
       throw new HttpException('tag alias should be string', HttpStatus.NOT_ACCEPTABLE);
     }
-    // fixme tagInput 的别名不能重复
     if (await await this.tagRepo.findOne({where: {name: tagInput.name}})) {
       throw new HttpException('tag name already exists', HttpStatus.CONFLICT);
     }
@@ -38,10 +37,6 @@ export class TagService {
     if (!tag) {
       throw new HttpException(`tag id:${id} not exist`, HttpStatus.NOT_FOUND);
     }
-    if (tagInput.id) {
-      delete tagInput.id;
-    }
-    // @ts-ignore
     await this.tagRepo.update(id, tagInput);
   }
 
