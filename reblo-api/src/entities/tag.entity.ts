@@ -23,7 +23,7 @@ export class Tag {
   @Column({default: 0, comment: '标签文章数'})
   count: number;
 
-  @Column({type: 'simple-json', comment: '拓展字段', default: []})
+  @Column({type: 'simple-json', comment: '拓展字段'})
   extends: Array<{ name: string, value: string }>;
 
   @CreateDateColumn({comment: '创建时间'})

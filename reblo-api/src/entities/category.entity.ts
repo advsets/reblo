@@ -23,7 +23,7 @@ export class Category {
   @Column({nullable: true, comment: '分类描述'})
   description: string;
 
-  @Column({type: 'simple-json', comment: '分类拓展', default: []})
+  @Column({type: 'simple-json', comment: '分类拓展'})
   extends: Array<{ name: string, value: string }>;
 
   @CreateDateColumn({comment: '创建时间'})
