@@ -1,7 +1,7 @@
 import {TypeOrmModuleOptions} from '@nestjs/typeorm';
 
 export const APP_BANNER = `
-
+                    _     _
            _ __ ___| |__ | | ___  
           | '__/ _ \\ '_ \\| |/ _ \\ 
           | | |  __/ |_) | | (_) |
@@ -12,16 +12,15 @@ export const APP_BANNER = `
 
 export const DB_CONFIG: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: '127.0.0.1',
+  host: 'localhost',
   port: 3311,
   username: 'root',
-  password: '123456',
+  password: 'root',
   database: 'reblo',
-  entities: [`${__dirname}/entities/**.entity.ts`],
+  entities: [`${__dirname}/entities/**.entity{.ts,.js}`],
   logger: 'advanced-console',
-  logging: false,
-  synchronize: true,
-  dropSchema: false
+  logging: true,
+  synchronize: true
 };
 
 export const JWT_CONFIG = {
